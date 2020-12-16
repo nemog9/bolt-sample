@@ -16,3 +16,11 @@
 - Interactivity & Shortcuts
 
 の2箇所変更があるので気をつけてね。（２個め忘れがち）
+
+## ショートカットとスラッシュコマンド
+
+**別物です。**
+
+スラッシュコマンドの進化系がショートカットと書かれているので、ショートカットを使うのが無難かもしれません。
+
+スラッシュコマンドを追加するにはSlackAPIのページに行って、登録する必要があります。詳細はドキュメントへ。[Creating and handling shortcuts](https://api.slack.com/interactivity/shortcuts/using)
