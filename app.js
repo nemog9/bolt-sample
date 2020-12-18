@@ -63,7 +63,7 @@ app.shortcut('open_modal', async({ shortcut, ack, context }) => {
       // `context` オブジェクトに保持されたトークンを使用 これどこから？
       token: context.botToken,
       trigger_id: shortcut.trigger_id,
-      views: {
+      view: {
         "type": "modal",
         "title": {
           "type": "plain_text",
@@ -78,11 +78,11 @@ app.shortcut('open_modal', async({ shortcut, ack, context }) => {
             "type": "section",
             "text": {
               "type": "mrkdwn",
-              "text": "最も簡単なモーダルを考えました。:simle: \n\n<https://api.slack.com/reference/block-kit/interactive-components|*インタラクティブなモーダルを作る*>または<https://api.slack.com/surfaces/modals/using#modifying|*さらにモーダルについて知る*>"
+              "text": "最も簡単なモーダルを考えました。:smile: \n\n<https://api.slack.com/reference/block-kit/interactive-components|*インタラクティブなモーダルを作る*>または<https://api.slack.com/surfaces/modals/using#modifying|*さらにモーダルについて知る*>"
             }
           },
           {
-            "type": "content",
+            "type": "context",
             "elements": [
               {
                 "type": "mrkdwn",
