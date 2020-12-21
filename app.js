@@ -62,7 +62,9 @@ app.shortcut('open_modal', async({ shortcut, ack, context }) => {
     const result = await app.client.views.open({
       // `context` オブジェクトに保持されたトークンを使用 これどこから？
       token: context.botToken,
+      // 適切な trigger_id を受け取ってから 3 秒以内に渡す
       trigger_id: shortcut.trigger_id,
+      // view の値をペイロードに含む
       view: {
         "type": "modal",
         "title": {
@@ -89,12 +91,62 @@ app.shortcut('open_modal', async({ shortcut, ack, context }) => {
                 "text": "このモーダルは<https://api.slack.com/tools/block-kit-builder|*Block Kit Builder*>を使ってデザインされました"
               }
             ]
+          },
+          {
+            "type": "section",
+            "text": {
+              "type": "plain_text",
+              "text": "次のモーダルに移動するボタン"
+            },
+            "accessory": {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "次のモーダル",
+              },
+              "action_id": "next_modal",
+            }
           }
-          
         ]
       }
     });
-    
+    console.log(result);
+  }
+  catch (error) {
+    console.error(error);
+  }
+});
+
+app.action('next_modal', async ({ ack, body, client }) => {
+  // ボタンを押したイベント確認
+  await ack();
+
+  try {
+    const result = await client.views.update({
+      // リクエストに含まれる view_id を渡す
+      view_id: body.view.id,
+      // 競合状態を防ぐために更新以前の view に含まれる hash を指定
+      hash: body.view.hash,
+      // 更新された view の値をペイロードに含む
+      view : {
+        type: 'modal',
+        // callback_id が view を特定するための識別子
+        callback_id: 'view_1',
+        title: {
+          type: 'plain_text',
+          text: '２個めのモーダル'
+        },
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'plain_text',
+              text: '更新されたモーダル'
+            }
+          }
+        ]
+      }
+    });
     console.log(result);
   }
   catch (error) {
